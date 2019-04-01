@@ -48,7 +48,7 @@ class HomeController extends Controller
         $amount = request()->amount;
         request()->session()->put('amount', $amount);
 
-        $donations = Donation::distinct()->pluck('amount');
+        $donations = Donation::distinct()->where('cat','Give Monthly')->pluck('amount');
         //return $donations;
 
         if ($type == "m" && in_array((int) $amount , json_decode($donations))) {
@@ -64,16 +64,16 @@ class HomeController extends Controller
 
             switch ($amount) {
                 case 2000:
-                    $postdata['plan'] = env('PAYSTACK_2k');
+                    $postdata['plan'] = env('PAYSTACK_2K');
                     break;
                 case 3000:
-                    $postdata['plan'] = env('PAYSTACK_3k');
+                    $postdata['plan'] = env('PAYSTACK_3K');
                     break;
                 case 5000:
-                    $postdata['plan'] = env('PAYSTACK_5k');
+                    $postdata['plan'] = env('PAYSTACK_5K');
                     break;
                 case 10000:
-                    $postdata['plan'] = env('PAYSTACK_10k');
+                    $postdata['plan'] = env('PAYSTACK_10K');
                     break;
                 default:
                     // code...
@@ -90,7 +90,7 @@ class HomeController extends Controller
         $link = "https://api.paystack.co/transaction/initialize";
 
         $result = json_decode($this->curl($link,$postdata),true);
-
+        //return $result;
         if ($result) {
           return redirect($result['data']['authorization_url']);
         }
