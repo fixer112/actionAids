@@ -14,6 +14,7 @@
                         </div>
                     @endif
 
+                    @if(count($donations)>0)
                     <div class="table-responsive">
                     <table class="nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -37,6 +38,12 @@
                         </tbody>
                     </table>
                     </div>
+                    @else
+                    <div class="alert alert-danger mx-5">
+                        No donation made yet, pls click on the donation link to make a donation.
+                    </div>
+                    @endif
+
                     
                     
                 </div>
